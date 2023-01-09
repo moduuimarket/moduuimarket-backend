@@ -1,0 +1,3 @@
+rootProject.name = 'moduuimarket-backend'
+include 'moduuimarket-api', 'moduuimarket-web' , 'moduuimarket-common'
+

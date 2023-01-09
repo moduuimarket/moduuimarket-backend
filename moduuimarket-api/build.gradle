@@ -1,0 +1,9 @@
+bootJar { enabled = true }
+jar { enabled = false }
+
+dependencies {
+    compileOnly(project(':moduuimarket-common'))
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
