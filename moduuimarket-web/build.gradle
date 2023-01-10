@@ -2,7 +2,7 @@ bootJar { enabled = true }
 jar { enabled = false }
 
 dependencies {
-    implementation project(':moduuimarket-common')
+    implementation project(':moduuimarket-domain')
     implementation project(':moduuimarket-api')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'

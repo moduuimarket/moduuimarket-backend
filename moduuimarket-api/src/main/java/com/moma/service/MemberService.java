@@ -4,20 +4,22 @@ import com.moma.domain.Member;
 import com.moma.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public void save() {
+    public String get() {
+        return "test";
     }
 
-    public List<Member> findAll() {
-        return null;
+    @Transactional
+    public void save(Member member) {
+
     }
 
 }
