@@ -3,7 +3,6 @@ plugins {
     id 'java'
 }
 
-
 repositories {
     mavenCentral()
 }
@@ -11,8 +10,8 @@ repositories {
 bootJar.enabled = false
 
 subprojects {
-    group = 'com.example'
-    version = '0.0.1-SNAPSHOT'
+    group = 'com.moma'
+    version = '1.0.0'
     sourceCompatibility = '11'
 
     apply plugin: 'java'
@@ -32,8 +31,13 @@ subprojects {
 
     dependencies {
         compileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
     }
 
     test {
