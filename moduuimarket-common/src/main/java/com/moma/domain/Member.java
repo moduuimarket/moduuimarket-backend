@@ -8,17 +8,21 @@ import javax.persistence.*;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@Table(name = "users")
+@Table(name = "member")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
+    public Member(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

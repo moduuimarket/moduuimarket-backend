@@ -1,7 +1,7 @@
 package com.moma.service;
 
-import com.moma.domain.User;
-import com.moma.repository.UserRepository;
+import com.moma.domain.Member;
+import com.moma.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,14 +9,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class MemberService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     public void save() {
     }
 
-    public List<User> findAll() {
+    public List<Member> findAll() {
         return null;
     }
 
