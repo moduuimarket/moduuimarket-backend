@@ -10,8 +10,6 @@ repositories {
 
 bootJar.enabled = false
 
-
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'java-library'
@@ -62,34 +60,13 @@ subprojects {
             html.destination file("$buildDir/jacoco/report")
         }
 
-        var Qdomains = []
-        for (qPattern in '**/QA'..'**/QZ') {
-            Qdomains.add(qPattern + '*')
-        }
-
-        afterEvaluate {
-            classDirectories.setFrom(
-                    files(classDirectories.files.collect {
-                        fileTree(dir: it, excludes: [
-                                "**/*Application*",
-                                "**/*Config*",
-                                "**/*Dto*",
-                                "**/*Request*",
-                                "**/*Response*",
-                                "**/*Interceptor*",
-                                "**/*Exception*"
-                        ] + Qdomains)
-                    })
-            )
-        }
-
         finalizedBy 'jacocoTestCoverageVerification'
     }
 
     jacocoTestCoverageVerification {
         var Qdomains = []
-        for (qPattern in 'A' .. 'Z') {
-            Qdomains.add("*.Q${qPattern}*")
+        for (qPattern in '*.QA'..'*.QZ') {
+            Qdomains.add(qPattern + '*')
         }
 
         violationRules {
