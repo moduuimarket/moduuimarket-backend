@@ -1,5 +1,6 @@
 package com.moma.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "member")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -21,8 +23,4 @@ public class Member {
     @Column(name = "name")
     private String name;
 
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }
