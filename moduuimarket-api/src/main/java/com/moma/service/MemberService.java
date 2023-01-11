@@ -19,7 +19,6 @@ public class MemberService {
 
     @Transactional
     public void save(Member member) {
-
     }
 
 }
