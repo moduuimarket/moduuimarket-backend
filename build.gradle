@@ -42,7 +42,89 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 
+    jacoco {
+        toolVersion = '0.8.7'
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled true
+            xml.enabled false
+            csv.enabled false
+
+            html.destination file("$buildDir/jacoco/report")
+        }
+
+        var Qdomains = []
+        for (qPattern in '**/QA'..'**/QZ') {
+            Qdomains.add(qPattern + '*')
+        }
+
+        afterEvaluate {
+            classDirectories.setFrom(
+                    files(classDirectories.files.collect {
+                        fileTree(dir: it, excludes: [
+                                "**/*Application*",
+                                "**/*Config*",
+                                "**/*Dto*",
+                                "**/*Request*",
+                                "**/*Response*",
+                                "**/*Interceptor*",
+                                "**/*Exception*"
+                        ] + Qdomains)
+                    })
+            )
+        }
+
+        finalizedBy 'jacocoTestCoverageVerification'
+    }
+
+    jacocoTestCoverageVerification {
+        var Qdomains = []
+        for (qPattern in 'A' .. 'Z') {
+            Qdomains.add("*.Q${qPattern}*")
+        }
+
+        violationRules {
+            rule {
+                enabled = true
+                element = 'CLASS'
+
+                limit {
+                    // 임시 50%, 추후 80% 이상 설정 예정
+                    minimum = 0.50
+                }
+
+                excludes = [
+                        '**.*Application*',
+                        '**.*Config*',
+                        '**.*Dto*',
+                        '**.*Request*',
+                        '**.*Response*',
+                        '**.*Interceptor*',
+                        '**.*Exception*'
+                ] + Qdomains
+            }
+        }
+    }
+
     test {
+        jacoco {
+            destinationFile = file("$buildDir/jacoco/jacoco.exec")
+        }
         useJUnitPlatform()
+        finalizedBy 'jacocoTestReport'
+    }
+
+    task testCoverage(type: Test) {
+        group 'verification'
+        description 'Runs the unit tests with coverage'
+
+        dependsOn(':test',
+                ':jacocoTestReport',
+                ':jacocoTestCoverageVerification')
+
+        tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+        tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
     }
 }
